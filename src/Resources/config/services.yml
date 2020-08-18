@@ -1,0 +1,53 @@
+services:
+  app.service.robot:
+    class: App\Services\RobotService
+    arguments:
+      - '@app.service.battery'
+      - '@app.service.logger'
+      - '@app.strategy.robot'
+  App\Services\RobotService: '@app.service.robot'
+
+  app.service.battery:
+    class: App\Services\BatteryService
+
+  app.service.map:
+    class: App\Services\MapService
+
+  app.strategy.action.left:
+    class: App\Strategy\Actions\ActionLeft
+    arguments:
+      - '@app.service.map'
+
+  app.strategy.action.right:
+    class: App\Strategy\Actions\ActionRight
+    arguments:
+      - '@app.service.map'
+
+  app.strategy.action.advance:
+    class: App\Strategy\Actions\ActionAdvance
+    arguments:
+      - '@app.service.map'
+
+  app.strategy.action.back:
+    class: App\Strategy\Actions\ActionBack
+    arguments:
+      - '@app.service.map'
+
+  app.strategy.action.clean:
+    class: App\Strategy\Actions\ActionClean
+    arguments:
+      - '@app.service.map'
+
+  app.strategy.robot:
+    class: App\Strategy\RobotStrategy
+    arguments:
+      - '@app.service.logger'
+      - '@app.strategy.action.left'
+      - '@app.strategy.action.right'
+      - '@app.strategy.action.advance'
+      - '@app.strategy.action.back'
+      - '@app.strategy.action.clean'
+
+  app.service.logger:
+    class: App\Services\LoggerService
+
